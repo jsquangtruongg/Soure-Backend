@@ -1,0 +1,40 @@
+###
+GET http://localhost:8000/api/v1/user/rfrfrfr
+
+
+
+###
+POST http://localhost:8000/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "firstName":"Nguyen",
+    "lastName":"Quang Truong",
+    "email":"admin445@gmail.com",
+    "password":"123456"
+}
+
+
+###
+POST http://localhost:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "firstName":"Nguyen",
+    "lastName":"Quang Truong",
+    "email":"admin1999@gmail.com",
+    "password":"123456"
+}
+
+
+###
+GET http://localhost:8000/api/v1/user/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm1haWwiOiJhZG1pbjE5OTlAZ21haWwuY29tIiwicm9sZV9jb2RlIjoiUjMiLCJpYXQiOjE3MjU0NTM1ODUsImV4cCI6MTcyNTg4NTU4NX0.Toa09qtXOi0CDpZ__ro7EXEqc6td2n5xJiS3pEdIw30
+
+
+###
+GET http://localhost:8000/api/v1/insert/
+
+
+
+
