@@ -12,6 +12,7 @@ export const register = async (req, res) => {
     }).validate(req.body);
     if (error) return badRequest(error.details[0]?.message, res);
     const response = await services.register(req.body);
+    if (response.err === 1) badRequest(response.mess, res);
     return res.status(200).json(response);
   } catch (error) {
     return InternalServerError(res);
@@ -28,6 +29,7 @@ export const login = async (req, res) => {
     }).validate(req.body);
     if (error) return badRequest(error.details[0]?.message, res);
     const response = await services.login(req.body);
+    if (response.err === 1) badRequest(response.mess, res);
     return res.status(200).json(response);
   } catch (error) {
     return InternalServerError(res);
