@@ -6,7 +6,7 @@ require("./connection_database");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );

@@ -17,7 +17,7 @@ export const register = ({ firstName, lastName, email, password }) =>
           password: hashPassword(password),
         },
       });
-      console.log(response);
+
       const token = response[1]
         ? jwt.sign(
             {
@@ -35,10 +35,16 @@ export const register = ({ firstName, lastName, email, password }) =>
         access_token: token ? `Bearer ${token}` : token,
       });
     } catch (error) {
+      console.log(
+        '%csrc/controllers/auth.js:16 "object"',
+        "color: #007acc;",
+        "object",
+        error
+      );
       reject(error);
     }
   });
-export const login = ({ firstName, lastName, email, password }) =>
+export const login = ({ email, password }) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.User.findOne({
