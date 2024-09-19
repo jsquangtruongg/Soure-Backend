@@ -1,14 +1,14 @@
 import user from "./user";
 import auth from "./auth";
 import insert from "./insert";
-import book from "./book";
+import blog from "./blog";
 import { NotFound } from "../middlewares/handle_error";
 
 const initRoutes = (app) => {
   app.use("/api/v1/user", user);
   app.use("/api/v1/auth", auth);
   app.use("/api/v1/insert", insert);
-  app.use("/api/v1/book", book);
+  app.use("/api/v1/blog", blog);
   app.use(NotFound);
 };
 module.exports = initRoutes;
