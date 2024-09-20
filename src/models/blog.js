@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Blog.belongsTo(models.BlogCategory, {
         foreignKey: "blog_category_id",
-        targetKey: "title",
-        as: "category",
+        targetKey: "id",
+        as: "categoryData",
       });
 
       Blog.belongsTo(models.User, {

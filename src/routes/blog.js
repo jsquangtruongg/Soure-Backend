@@ -3,5 +3,7 @@ import express from "express";
 import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 router.use(verifyToken);
-router.post("/create", controllers.createBlog);
+router.get("/", controllers.getAllBlog);
+router.post("/", controllers.createBlog);
+
 module.exports = router;
