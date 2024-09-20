@@ -1,5 +1,33 @@
 import db from "../models";
 
+export const getAllBlog = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Blog.findAll({
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "email", "firstName", "lastName"],
+          },
+          {
+            model: db.BlogCategory,
+            as: "categoryData",
+            attributes: ["title", "describe"],
+          },
+        ],
+      });
+
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
 export const createBlog = ({
   title,
   content,
