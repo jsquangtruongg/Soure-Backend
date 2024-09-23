@@ -7,8 +7,9 @@ const router = express.Router();
 
 // PRIVATE ROUTES
 router.use(verifyToken);
-// router.use(isAdmin);
-// router.get("/",[verifyToken,isAdmin] controllers.getCurrent);
+
 router.get("/", controllers.getCurrent);
 
+router.use(isModeratorOrAdmin);
+router.get("/info-role-admin", controllers.getCurrent);
 module.exports = router;
