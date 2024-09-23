@@ -10,7 +10,7 @@ export const createJob = ({ content, img, user_id }) =>
 
       resolve({
         err: response ? 0 : 1,
-        mess: "The Blog was create successfully",
+        mess: "The Job was create successfully",
       });
     } catch (error) {
       reject(error);
@@ -32,7 +32,7 @@ export const getAllJob = () =>
 
       resolve({
         err: response ? 0 : 1,
-        mess: "The Blog was create successfully",
+        mess: "The Job was create successfully",
         data: response,
       });
     } catch (error) {
