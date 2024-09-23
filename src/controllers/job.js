@@ -11,3 +11,13 @@ export const createJob = async (req, res) => {
     return InternalServerError(res);
   }
 };
+
+export const getAllJob = async (req, res) => {
+  try {
+    const response = await services.getAllJob();
+    if (response.err === 1) return badRequest("ERROR", res);
+    return res.status(200).json(response);
+  } catch (error) {
+    return InternalServerError(res);
+  }
+};

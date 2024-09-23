@@ -4,5 +4,6 @@ import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 router.use(verifyToken);
 router.post("/", controllers.createJob);
+router.get("/", controllers.getAllJob);
 
 module.exports = router;
