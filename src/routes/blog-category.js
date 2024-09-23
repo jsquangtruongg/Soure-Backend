@@ -4,4 +4,6 @@ import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 router.use(verifyToken);
 router.get("/", controllers.getAllBlogCategory);
+
+router.get("/getId", controllers.getIdBlogCategory);
 module.exports = router;
