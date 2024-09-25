@@ -26,3 +26,18 @@ export const GetOne = (userId) =>
       reject(error);
     }
   });
+
+export const getAllUser = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.User.findAll({});
+
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });

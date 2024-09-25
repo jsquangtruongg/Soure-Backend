@@ -12,3 +12,13 @@ export const getCurrent = async (req, res) => {
     return InternalServerError(res);
   }
 };
+
+export const getAllUser = async (req, res) => {
+  try {
+    const response = await services.getAllUser();
+    if (response.err === 1) return badRequest("ERROR", res);
+    return res.status(200).json(response);
+  } catch (error) {
+    return InternalServerError(res);
+  }
+};
