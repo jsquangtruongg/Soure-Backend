@@ -43,11 +43,26 @@ export const getAllUser = () =>
     }
   });
 
-  //edit
+//edit
 export const putUser = (userId, userData) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.User.findOne({ where: { id: userId } });
+      const response = await db.User.findOne({
+        where: { id: userId },
+        include: [
+          {
+            model: db.Role,
+            as: "roleData",
+            attributes: ["id", "code"],
+          },
+        ],
+      });
+      if (response.roleData.id === 1) {
+        return resolve({
+          err: 1,
+          mess: "No Edit Role Admin",
+        });
+      }
       await response.update(userData);
 
       resolve({
