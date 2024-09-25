@@ -22,3 +22,14 @@ export const getAllUser = async (req, res) => {
     return InternalServerError(res);
   }
 };
+//edit
+export const putUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userData = req.body;
+    const response = await services.putUser(id, userData);
+    return res.status(200).json(response);
+  } catch (error) {
+    return InternalServerError(res);
+  }
+};
