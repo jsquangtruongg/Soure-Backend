@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models";
 
 export const GetOne = (userId) =>
@@ -31,6 +32,23 @@ export const getAllUser = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.User.findAll({});
+
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  //edit
+export const putUser = (userId, userData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.User.findOne({ where: { id: userId } });
+      await response.update(userData);
 
       resolve({
         err: response ? 0 : 1,
