@@ -9,7 +9,9 @@ const router = express.Router();
 router.use(verifyToken);
 
 router.get("/", controllers.getCurrent);
-
+router.use(isAdmin);
+router.get("/users", controllers.getAllUser);
+// Kiểm tra quyền addmin
 router.use(isModeratorOrAdmin);
 router.get("/info-role-admin", controllers.getCurrent);
 module.exports = router;
