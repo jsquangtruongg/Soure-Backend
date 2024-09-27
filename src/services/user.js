@@ -74,3 +74,19 @@ export const putUser = (userId, userData) =>
       reject(error);
     }
   });
+
+//Delete
+export const deleteUser = (userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.User.destroy({
+        where: { id: userId },
+      });
+      resolve({
+        err: response ? 0 : 1,
+        mess: response ? "User deleted successfully" : "User not found",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
