@@ -33,3 +33,17 @@ export const putUser = async (req, res) => {
     return InternalServerError(res);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`Deleting user with ID: ${id}`);
+    const response = await services.deleteUser(id);
+
+    if (response.err === 1) return badRequest(response.mess, res);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("Error deleting user:", error); // Log lỗi
+    return InternalServerError(res);
+  }
+};
