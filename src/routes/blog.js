@@ -8,4 +8,6 @@ router.get("/", controllers.getAllBlog);
 router.get("/id", controllers.getIdBlog);
 router.use(isModeratorOrAdmin);
 router.post("/", controllers.createBlog);
+router.put("/blogs/:id", controllers.updateBlog);
+router.delete("/blogs/:id", controllers.deleteBlog);
 module.exports = router;

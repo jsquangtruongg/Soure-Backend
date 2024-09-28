@@ -80,3 +80,44 @@ export const createBlog = ({
       reject(error);
     }
   });
+
+export const updateBlog = (id, blogData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Blog.findOne({
+        where: { id },
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+      await response.update(blogData);
+
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const deleteBlog = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Blog.destroy({
+        where: { id },
+      });
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The delete successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
