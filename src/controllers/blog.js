@@ -50,13 +50,11 @@ export const updateBlog = async (req, res) => {
 export const deleteBlog = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(`Deleting user with ID: ${id}`);
     const response = await services.deleteBlog(id);
 
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {
-    console.error("Error deleting user:", error);
     return InternalServerError(res);
   }
 };

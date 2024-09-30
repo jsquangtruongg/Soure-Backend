@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "blog_category_id",
         as: "blogs",
       });
+
+      BlogCategory.belongsTo(models.User, {
+        foreignKey: "user_id",
+        targetKey: "id",
+        as: "userData",
+      });
     }
   }
   BlogCategory.init(
