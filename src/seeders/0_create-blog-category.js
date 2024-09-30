@@ -11,12 +11,14 @@ module.exports = {
           describe: "Tuyển dụng thường xuyên",
           createdAt: new Date(),
           updatedAt: new Date(),
+          img: "",
         },
         {
           title: "Technical",
           describe: "Tuyển dụng số lượng lớn",
           createdAt: new Date(),
           updatedAt: new Date(),
+          img: "",
         },
       ],
       {}
