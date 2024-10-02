@@ -1,5 +1,7 @@
 import { where } from "sequelize";
 import db from "../models";
+import { Op } from "sequelize";
+import { query } from "express";
 
 export const GetOne = (userId) =>
   new Promise(async (resolve, reject) => {
@@ -28,20 +30,66 @@ export const GetOne = (userId) =>
     }
   });
 
-export const getAllUser = () =>
+export const getAllUser = (lastName,firstName,role_code, body) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.User.findAll({});
+      let queryConditions = {};
+
+      if (lastName) {
+        queryConditions.lastName = { [Op.substring]: lastName };
+      }
+      
+      if (firstName) {
+        queryConditions.firstName = { [Op.substring]: firstName };
+      }
+      if (role_code) {
+        queryConditions.role_code = { [Op.substring]: role_code };
+      }
+
+      if (body) {
+        queryConditions = { ...queryConditions, ...body };
+      }
+
+      const response = await db.User.findAll({
+        where: queryConditions,
+        attributes: {
+          exclude: ["password"],
+        },
+        include: [
+          {
+            model: db.Role,
+            as: "roleData",
+            attributes: ["id", "code", "value"],
+          },
+        ],
+      });
 
       resolve({
         err: response ? 0 : 1,
-        mess: "The Blog was create successfully",
+        mess: response ? "Users fetched successfully" : "No users found",
         data: response,
       });
     } catch (error) {
       reject(error);
     }
   });
+// export const getAllUser = (name, body) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//       if (name) body.lastName = { [Op.substring]: name };
+//       const response = await db.User.findAll({
+//         where: query,
+//       });
+
+//       resolve({
+//         err: response ? 0 : 1,
+//         mess: "The Blog was create successfully",
+//         data: response,
+//       });
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
 
 //edit
 export const putUser = (userId, userData) =>
