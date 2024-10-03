@@ -1,12 +1,21 @@
-import { where } from "sequelize";
+import { Op } from "sequelize";
 import db from "../models";
-import { date } from "joi";
-import { title } from "../helpers/joi_schema";
 
-export const getAllBlogCategory = () =>
+export const getAllBlogCategory = (title, describe, lastName, body) =>
   new Promise(async (resolve, reject) => {
     try {
+      let queryConditions = {};
+      if (title) {
+        queryConditions.title = { [Op.substring]: title };
+      }
+      if (describe) {
+        queryConditions.describe = { [Op.substring]: describe };
+      }
+      if (body) {
+        queryConditions = { ...queryConditions, ...body };
+      }
       const response = await db.BlogCategory.findAll({
+         where: queryConditions,
         include: [
           {
             model: db.Blog,
@@ -17,6 +26,7 @@ export const getAllBlogCategory = () =>
             model: db.User,
             as: "userData",
             attributes: ["id", "email", "firstName", "lastName"],
+            where: lastName ? { lastName: { [Op.like]: `%${lastName}%` } } : {},
           },
         ],
       });
