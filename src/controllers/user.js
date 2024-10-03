@@ -15,7 +15,13 @@ export const getCurrent = async (req, res) => {
 
 export const getAllUser = async (req, res) => {
   try {
-    const response = await services.getAllUser();
+    const { lastName,firstName,role_code ,...body } = req.query;
+    const response = await services.getAllUser(
+      lastName,
+      firstName,
+      role_code,
+      body
+    );
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

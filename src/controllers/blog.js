@@ -2,7 +2,8 @@ import { InternalServerError, badRequest } from "../middlewares/handle_error";
 import * as services from "../services";
 export const getAllBlog = async (req, res) => {
   try {
-    const response = await services.getAllBlog();
+    const { lastName, content, title, ...body } = req.query;
+    const response = await services.getAllBlog(title, content, lastName, body);
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

@@ -1,14 +1,26 @@
 import db from "../models";
-
-export const getAllBlog = () =>
+import { Op } from "sequelize";
+export const getAllBlog = (title, content, lastName, body) =>
   new Promise(async (resolve, reject) => {
     try {
+      let queryConditions = {};
+      if (title) {
+        queryConditions.title = { [Op.like]: `%${title}%` }; // Thay đổi từ Op.substring sang Op.like
+      }
+      if (content) {
+        queryConditions.content = { [Op.substring]: content };
+      }
+      if (body) {
+        queryConditions = { ...queryConditions, ...body };
+      }
       const response = await db.Blog.findAll({
+        where: queryConditions,
         include: [
           {
             model: db.User,
             as: "userData",
             attributes: ["id", "email", "firstName", "lastName"],
+            where: lastName ? { lastName: { [Op.like]: `%${lastName}%` } } : {},
           },
           {
             model: db.BlogCategory,
