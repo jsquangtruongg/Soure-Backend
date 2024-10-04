@@ -8,7 +8,7 @@ export const getAllBlogCategory = async (req, res) => {
     const response = await services.getAllBlogCategory(
       title,
       describe,
-      lastName, 
+      lastName,
       body
     );
 
