@@ -12,6 +12,12 @@ export const title = Joi.string().required();
 
 export const price = Joi.number().required();
 
-export const image = Joi.string().required();
+export const image = Joi.string().uri().required();
 
 export const category_code = Joi.string().uppercase().alphanum().required();
+
+export const content = Joi.string().required();
+
+export const user_id = Joi.string().uppercase().alphanum().required();
+
+export const JobCategory_id = Joi.number().required();

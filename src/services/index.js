@@ -4,3 +4,4 @@ export * from "./insert";
 export * from "./blog";
 export * from "./blog-category";
 export * from "./job";
+export * from "./job-category";
