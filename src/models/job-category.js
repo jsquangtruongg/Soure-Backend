@@ -9,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      JobCategory.hasMany(models.Blog, {
-        foreignKey: "blog_category_id",
-        as: "blogs",
+
+      JobCategory.hasMany(models.Job, {
+        foreignKey: "JobCategory_id",
+        targetKey: "id",
+        as: "Jobs",
       });
 
       JobCategory.belongsTo(models.User, {
@@ -24,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   JobCategory.init(
     {
       title: DataTypes.STRING,
+      user_id: DataTypes.INTEGER,
     },
     {
       sequelize,

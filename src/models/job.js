@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Job.belongsTo(models.JobCategory, {
+        foreignKey: "JobCategory_id",
+        targetKey: "id",
+        as: "JobCategoryData",
+      });
 
       Job.belongsTo(models.User, {
         foreignKey: "user_id",
@@ -22,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       content: DataTypes.STRING,
       img: DataTypes.STRING,
       user_id: DataTypes.INTEGER,
+      JobCategory_id: DataTypes.INTEGER,
     },
     {
       sequelize,

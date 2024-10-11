@@ -16,6 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       user_id: { type: Sequelize.INTEGER, defaultValue: 1 },
+      JobCategory_id: { type: Sequelize.INTEGER, defaultValue: 1 },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

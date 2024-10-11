@@ -5,4 +5,6 @@ const router = express.Router();
 router.use(verifyToken);
 router.post("/", controllers.CreateJobCategory);
 router.get("/", controllers.getAllJobCategory);
+router.get("/id", controllers.getIdJobCategory);
+router.delete("/:id", controllers.deleteJobCategory);
 module.exports = router;
