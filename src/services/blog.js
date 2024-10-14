@@ -1,5 +1,6 @@
 import db from "../models";
 import { Op } from "sequelize";
+const cloudinary = require("cloudinary").v2;
 export const getAllBlog = (title, content, lastName, body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -68,28 +69,36 @@ export const getIdBlog = (blog_category_id) =>
 export const createBlog = ({
   title,
   content,
-  img,
+  fileData,
   user_id,
   blog_category_id,
-  salary,
 }) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Blog.create({
         title,
         content,
-        img,
+        img: fileData?.path,
         user_id,
         blog_category_id,
-        salary,
       });
 
-      resolve({
-        err: response ? 0 : 1,
-        mess: "The Blog was create successfully",
-      });
+      if (response) {
+        resolve({
+          err: 0,
+          mess: "Tao thanh cong",
+        });
+      } else {
+        resolve({
+          err: 1,
+          mess: "Tao that bai",
+        });
+      }
+
+      if (fileData && !response) cloudinary.uploader.destroy(fileData.filename);
     } catch (error) {
       reject(error);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 

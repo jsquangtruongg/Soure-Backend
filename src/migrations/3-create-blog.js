@@ -13,12 +13,13 @@ module.exports = {
         type: Sequelize.STRING,
       },
       content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT("long"),
       },
       img: {
         type: Sequelize.STRING,
       },
       user_id: { type: Sequelize.INTEGER, defaultValue: 1 },
+
       salary: {
         type: Sequelize.STRING,
       },
