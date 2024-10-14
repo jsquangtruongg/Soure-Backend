@@ -7,34 +7,20 @@ export const createJob = async (req, res) => {
   try {
     const filData = req.file;
     console.log(filData);
-    const { content, user_id, JobCategory_id } = req.body;
+    const { content, user_id, JobCategory_id, salary, title } = req.body;
 
     console.log("File Data:", filData);
     console.log("Content:", content);
     console.log("User ID:", user_id);
     console.log("Job Category ID:", JobCategory_id);
-    if (!filData || !filData.path) {
-      return badRequest("Missing image file", res);
-    }
 
-    if (!content || !user_id || !JobCategory_id) {
-      return badRequest("Missing required fields", res);
-    }
-    const { error } = Joi.object({
-      image,
-      content,
-      user_id,
-      JobCategory_id,
-    }).validate({ ...req.body, image: filData?.path });
-    if (error) {
-      if (filData) cloudinary.uploader.destroy(filData.filename);
-      return badRequest(error.details[0].message, res);
-    }
     const response = await services.createJob({
       content,
       user_id,
       JobCategory_id,
-      fileData: filData,
+      fileData: filData || null,
+      salary,
+      title,
     });
     console.log(req.body);
     console.log("abc", response);

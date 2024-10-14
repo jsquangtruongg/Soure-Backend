@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "userData",
       });
+
+      Job.belongsTo(models.BlogCategory, {
+        foreignKey: "blog_category_id",
+        targetKey: "id",
+        as: "categoryData",
+      });
     }
   }
   Job.init(
@@ -28,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
       img: DataTypes.STRING,
       user_id: DataTypes.INTEGER,
       JobCategory_id: DataTypes.INTEGER,
+      blog_category_id: DataTypes.INTEGER,
+      salary: DataTypes.STRING,
+      title: DataTypes.STRING,
     },
     {
       sequelize,

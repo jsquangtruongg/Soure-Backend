@@ -3,7 +3,14 @@ import db from "../models";
 import moment from "moment";
 import { Op } from "sequelize";
 const cloudinary = require("cloudinary").v2;
-export const createJob = ({ content, user_id, JobCategory_id, fileData }) =>
+export const createJob = ({
+  content,
+  user_id,
+  JobCategory_id,
+  fileData,
+  salary,
+  title,
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Job.create({
@@ -11,6 +18,8 @@ export const createJob = ({ content, user_id, JobCategory_id, fileData }) =>
         img: fileData?.path,
         user_id,
         JobCategory_id,
+        salary,
+        title,
       });
 
       if (response) {

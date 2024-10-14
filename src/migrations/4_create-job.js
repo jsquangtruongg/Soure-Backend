@@ -10,13 +10,20 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT("long"),
       },
       img: {
         type: Sequelize.STRING,
       },
+      salary: {
+        type: Sequelize.STRING,
+      },
+      title: {
+        type: Sequelize.STRING,
+      },
       user_id: { type: Sequelize.INTEGER, defaultValue: 1 },
       JobCategory_id: { type: Sequelize.INTEGER, defaultValue: 1 },
+      blog_category_id: { type: Sequelize.INTEGER, defaultValue: 0 },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",
