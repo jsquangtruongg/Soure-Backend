@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import db from "../models";
-
+const cloudinary = require("cloudinary").v2;
 export const getAllBlogCategory = (title, describe, lastName, body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -15,7 +15,8 @@ export const getAllBlogCategory = (title, describe, lastName, body) =>
         queryConditions = { ...queryConditions, ...body };
       }
       const response = await db.BlogCategory.findAll({
-         where: queryConditions,
+        where: queryConditions,
+        attributes: ["id", "title", "describe", "img"],
         include: [
           {
             model: db.Blog,
@@ -109,20 +110,37 @@ export const deleteBlogCategory = (id) =>
     }
   });
 
-export const createBlogCategory = ({ title, describe, user_id, img }) =>
+export const createBlogCategory = ({ title, describe, user_id, fileData }) =>
   new Promise(async (resolve, reject) => {
     try {
+      console.log("Các tham số truyền vào: ", {
+        title,
+        describe,
+        user_id,
+        img: fileData?.path,
+      });
+      console.log("Đường dẫn ảnh fileData trước khi lưu: ", fileData?.path);
       const response = await db.BlogCategory.create({
         title,
         describe,
         user_id,
-        img,
+        img: fileData?.path, // Đảm bảo đang lưu đúng đường dẫn ảnh
       });
-      resolve({
-        err: response ? 0 : 1,
-        mess: "Tao blog thanh cong",
-      });
+      if (response) {
+        resolve({
+          err: 0,
+          mess: "Tạo thành công",
+        });
+      } else {
+        resolve({
+          err: 1,
+          mess: "Tạo thất bại",
+        });
+      }
+
+      if (fileData && !response) cloudinary.uploader.destroy(fileData.filename);
     } catch (error) {
       reject(error);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });

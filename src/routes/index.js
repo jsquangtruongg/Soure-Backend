@@ -4,6 +4,8 @@ import insert from "./insert";
 import blog from "./blog";
 import job from "./job";
 import blogCategory from "./blog-category";
+import apply from "./apply";
+import jobCategory from "./job-category";
 import { NotFound } from "../middlewares/handle_error";
 
 const initRoutes = (app) => {
@@ -13,6 +15,8 @@ const initRoutes = (app) => {
   app.use("/api/v1/blog", blog);
   app.use("/api/v1/blog-category", blogCategory);
   app.use("/api/v1/job", job);
+  app.use("/api/v1/job-category", jobCategory);
+  app.use("/api/v1/job-apply", apply);
   app.use(NotFound);
 };
 module.exports = initRoutes;
