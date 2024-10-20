@@ -1,5 +1,6 @@
 import { Op, where } from "sequelize";
 import db from "../models";
+import { date } from "joi";
 
 export const createJobCategory = ({ title, user_id }) =>
   new Promise(async (resolve, reject) => {
@@ -80,6 +81,30 @@ export const getIdJobCategoryAPI = (id) =>
       resolve({
         err: response ? 0 : 1,
         mess: "The Job getId successfully",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const updateJobCategoryAPI = (id, JobCategory) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.JobCategory.findOne({
+        where: { id },
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+      await response.update(JobCategory);
+      resolve({
+        err: response ? 0 : 1,
+        mess: "Cap nhap thanh cong",
         data: response,
       });
     } catch (error) {

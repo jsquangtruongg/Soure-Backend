@@ -31,11 +31,11 @@ export const getAllBlog = (title, content, lastName, body) =>
         ],
       });
 
-      resolve({
-        err: response ? 0 : 1,
-        mess: "The Blog was create successfully",
-        data: response,
-      });
+        resolve({
+          err: response ? 0 : 1,
+          mess: "The Blog was create successfully",
+          data: response,
+        });
     } catch (error) {
       reject(error);
     }

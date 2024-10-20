@@ -43,3 +43,15 @@ export const getIdJobCategory = async (req, res) => {
     return InternalServerError(res);
   }
 };
+
+export const updateJobCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await services.updateJobCategoryAPI(id, req.body);
+    if (response.err === 1) return badRequest("ERROR", res);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error(error);
+    InternalServerError(res);
+  }
+};

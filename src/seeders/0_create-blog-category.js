@@ -18,7 +18,7 @@ module.exports = {
           describe: "Tuyển dụng số lượng lớn",
           createdAt: new Date(),
           updatedAt: new Date(),
-          img: "https://res.cloudinary.com/dq4basktt/image/upload/v1728718394/learn_nodejs/kmxxjxzgceb7pmcq0c6l.jpg",
+          img: "https://res.cloudinary.com/dq4basktt/image/upload/v1728814587/learn_nodejs/jmx1vmjwhn16w9zzdavw.jpg",
         },
       ],
       {}

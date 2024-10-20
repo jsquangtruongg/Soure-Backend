@@ -2,7 +2,7 @@ import { where } from "sequelize";
 import db from "../models";
 import { Op } from "sequelize";
 import { query } from "express";
-
+const cloudinary = require("cloudinary").v2;
 export const GetOne = (userId) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -30,7 +30,7 @@ export const GetOne = (userId) =>
     }
   });
 
-export const getAllUser = (lastName,firstName,role_code, body) =>
+export const getAllUser = (lastName, firstName, role_code, body) =>
   new Promise(async (resolve, reject) => {
     try {
       let queryConditions = {};
@@ -38,7 +38,7 @@ export const getAllUser = (lastName,firstName,role_code, body) =>
       if (lastName) {
         queryConditions.lastName = { [Op.substring]: lastName };
       }
-      
+
       if (firstName) {
         queryConditions.firstName = { [Op.substring]: firstName };
       }
@@ -92,7 +92,7 @@ export const getAllUser = (lastName,firstName,role_code, body) =>
 //   });
 
 //edit
-export const putUser = (userId, userData) =>
+export const putUser = (userId, userData, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.User.findOne({
@@ -111,6 +111,13 @@ export const putUser = (userId, userData) =>
           mess: "No Edit Role Admin",
         });
       }
+      if (fileData) {
+        if (response.avatar) {
+          await cloudinary.uploader.destroy(response.avatar);
+        }
+        const uploadResponse = await cloudinary.uploader.upload(fileData.path);
+        userData.avatar = uploadResponse.secure_url;
+      }
       await response.update(userData);
 
       resolve({
@@ -120,6 +127,9 @@ export const putUser = (userId, userData) =>
       });
     } catch (error) {
       reject(error);
+       if (fileData) {
+         await cloudinary.uploader.destroy(fileData.filename); // Xóa ảnh nếu có lỗi xảy ra
+       }
     }
   });
 

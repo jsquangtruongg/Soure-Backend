@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Job.init(
     {
+      
       content: DataTypes.STRING,
       img: DataTypes.STRING,
       user_id: DataTypes.INTEGER,

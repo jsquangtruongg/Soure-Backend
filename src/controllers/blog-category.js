@@ -24,8 +24,6 @@ export const getAllBlogCategory = async (req, res) => {
 export const postBlogCategory = async (req, res) => {
   try {
     const filData = req.file; // filData chứa thông tin file đã upload
-   
-
 
     const { title, describe, user_id } = req.body;
 

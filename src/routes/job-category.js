@@ -7,4 +7,5 @@ router.post("/", controllers.CreateJobCategory);
 router.get("/", controllers.getAllJobCategory);
 router.get("/id", controllers.getIdJobCategory);
 router.delete("/:id", controllers.deleteJobCategory);
+router.put("/:id",controllers.updateJobCategory)
 module.exports = router;
