@@ -19,6 +19,11 @@ export const getAllApply = () =>
             as: "jobs",
             attributes: ["id", "img", "content"],
           },
+          {
+            model: db.User,
+            as: "userApply",
+            attributes: ["id", "lastName", "email", "firstName", "avatar"],
+          },
         ],
       });
       resolve({
@@ -32,16 +37,25 @@ export const getAllApply = () =>
     }
   });
 
-export const createApply = ({ fullName, img, user_id, job_id, email, phone }) =>
+export const createApply = ({
+  fullName,
+  fileData,
+  user_id,
+  job_id,
+  userApply_id,
+  email,
+  phone,
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Apply.create({
         fullName,
-        img,
+        img: fileData?.path,
         email,
         phone,
         user_id,
         job_id,
+        userApply_id,
       });
       if (response) {
         resolve({
@@ -54,8 +68,10 @@ export const createApply = ({ fullName, img, user_id, job_id, email, phone }) =>
           mess: "Tao that bai",
         });
       }
+      if (fileData && !response) cloudinary.uploader.destroy(fileData.filename);
     } catch (error) {
       reject(error);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
   });
 
@@ -74,6 +90,11 @@ export const getIdApply = (id) => {
             model: db.Job,
             as: "jobs",
             attributes: ["id", "img", "content"],
+          },
+          {
+            model: db.User,
+            as: "userApply",
+            attributes: ["id", "lastName", "email", "firstName", "avatar"],
           },
         ],
       });

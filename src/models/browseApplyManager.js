@@ -1,40 +1,42 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
-  class Apply extends Model {
+  class BrowseApply extends Model {
     static associate(models) {
-      Apply.belongsTo(models.User, {
+      BrowseApply.belongsTo(models.User, {
         foreignKey: "user_id",
         targetKey: "id",
         as: "userData",
       });
-
-      Apply.belongsTo(models.User, {
+      BrowseApply.belongsTo(models.User, {
         foreignKey: "userApply_id",
         targetKey: "id",
         as: "userApply",
       });
-      Apply.belongsTo(models.Job, {
+      BrowseApply.belongsTo(models.Job, {
         foreignKey: "job_id",
         targetKey: "id",
         as: "jobs",
       });
+      BrowseApply.belongsTo(models.Apply, {
+        foreignKey: "apply_id",
+        targetKey: "id",
+        as: "Applies",
+      });
     }
   }
-  Apply.init(
+  BrowseApply.init(
     {
-      img: DataTypes.STRING,
-      email: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      fullName: DataTypes.STRING,
       user_id: DataTypes.INTEGER,
       job_id: DataTypes.INTEGER,
-      userApply_id: DataTypes.STRING,
+      userApply_id: DataTypes.INTEGER,
+      apply_id: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Apply",
+      modelName: "BrowseApply",
     }
   );
-  return Apply;
+  return BrowseApply;
 };

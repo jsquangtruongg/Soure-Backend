@@ -16,7 +16,17 @@ export const getAllApply = async (req, res) => {
 
 export const createApply = async (req, res) => {
   try {
-    const response = await services.createApply(req.body);
+    const fileData = req.file;
+    const { fullName, user_id, userApply_id, job_id, email, phone } = req.body;
+    const response = await services.createApply({
+      fullName,
+      fileData: fileData || null,
+      user_id,
+      userApply_id,
+      job_id,
+      email,
+      phone,
+    });
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

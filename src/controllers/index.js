@@ -6,3 +6,5 @@ export * from "./blog-category";
 export * from "./job";
 export * from "./job-category";
 export * from "./apply";
+export * from "./apply-member";
+export * from "./browse-apply-manager";
