@@ -2,6 +2,7 @@ import * as services from "../services";
 import { InternalServerError, badRequest } from "../middlewares/handle_error";
 // import { email, password } from "../helpers/joi_schema";
 // import Joi from "joi";
+const cloudinary = require("cloudinary").v2;
 export const getCurrent = async (req, res) => {
   try {
     const { id } = req.user;
@@ -15,7 +16,7 @@ export const getCurrent = async (req, res) => {
 
 export const getAllUser = async (req, res) => {
   try {
-    const { lastName,firstName,role_code ,...body } = req.query;
+    const { lastName, firstName, role_code, ...body } = req.query;
     const response = await services.getAllUser(
       lastName,
       firstName,
@@ -33,9 +34,13 @@ export const putUser = async (req, res) => {
   try {
     const { id } = req.params;
     const userData = req.body;
-    const response = await services.putUser(id, userData);
+    const fileData = req.file;
+    const response = await services.putUser(id, userData, fileData);
+    if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {
+    console.error("Error occurred during user update:", error);
+    if (req.file) await cloudinary.uploader.destroy(req.file.filename);
     return InternalServerError(res);
   }
 };
