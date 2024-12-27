@@ -21,17 +21,3 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
-  try {
-    const { error } = Joi.object({
-      email,
-      password,
-    }).validate(req.body);
-    if (error) return badRequest(error.details[0]?.message, res);
-    const response = await services.login(req.body);
-    if (response.err === 1) return badRequest(response.mes, res);
-    return res.status(200).json(response);
-  } catch (error) {
-    return InternalServerError(res);
-  }
-};
