@@ -1,7 +1,11 @@
 import * as controllers from "../controllers";
 import express from "express";
+
+import verifyToken from "../middlewares/verify_token";
+
 const router = express.Router();
-router.post("/register", controllers.register);
-router.post("/login", controllers.login);
+router.use(verifyToken);
+
+router.post("/:jobId/like", controllers.likeJob);
+
 module.exports = router;
-    

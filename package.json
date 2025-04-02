@@ -15,7 +15,7 @@
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^4.21.2",
     "http-errors": "^2.0.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
@@ -23,12 +23,23 @@
     "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^3.11.0",
     "nodemon": "^3.1.4",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/node": "^7.25.0",
     "@babel/preset-env": "^7.25.4",
     "sequelize-cli": "^6.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsquangtruongg/Soure-Backend.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jsquangtruongg/Soure-Backend/issues"
+  },
+  "homepage": "https://github.com/jsquangtruongg/Soure-Backend#readme"
 }

@@ -8,3 +8,5 @@ export * from "./job-category";
 export * from "./apply";
 export * from "./apply-member";
 export * from "./browse-apply-manager";
+export * from "./delete-apply";
+export * from "./like";

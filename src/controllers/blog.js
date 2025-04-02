@@ -1,8 +1,6 @@
 import { InternalServerError, badRequest } from "../middlewares/handle_error";
 import * as services from "../services";
 const cloudinary = require("cloudinary").v2;
-import { image } from "../helpers/joi_schema";
-import Joi from "joi";
 export const getAllBlog = async (req, res) => {
   try {
     const { lastName, content, title, ...body } = req.query;

@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Role extends Model {
     /**
@@ -8,18 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Mối quan hệ với bảng User
+      Role.hasMany(models.User, {
+        foreignKey: "role_code", // Khóa ngoại trong bảng User
+        sourceKey: "code", // Khóa chính trong bảng Role
+        as: "users", // Đặt tên cho alias của mối quan hệ
+      });
     }
   }
+
   Role.init(
     {
-      code: DataTypes.STRING,
-      value: DataTypes.STRING,
+      code: {
+        type: DataTypes.STRING,
+        unique: true, // Đảm bảo mã vai trò là duy nhất
+      },
+      value: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
       modelName: "Role",
     }
   );
+
   return Role;
 };

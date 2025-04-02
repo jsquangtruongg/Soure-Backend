@@ -9,5 +9,5 @@ router.post("/", uploadCloud.single("img"), controllers.createJob);
 router.get("/", controllers.getAllJob);
 router.put("/:id", controllers.updateJob);
 router.delete("/:id", controllers.deleteJob);
-router.get("/id", controllers.getIdJob);
+router.get("/:id", controllers.getIdJob);
 module.exports = router;

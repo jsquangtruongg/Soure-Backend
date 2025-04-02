@@ -23,7 +23,7 @@ export const getAllBrowseApplyManager = () =>
           {
             model: db.Apply,
             as: "Applies",
-            attributes: ["id", "fullName", "email", "phone"],
+            attributes: ["id", "fullName", "email", "phone", "img"],
           },
         ],
       });
@@ -33,6 +33,7 @@ export const getAllBrowseApplyManager = () =>
         data: response,
       });
     } catch (error) {
+      console.log(error);
       reject({
         err: 1,
         mess: "Lỗi khi lấy dữ liệu",

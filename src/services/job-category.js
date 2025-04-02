@@ -25,7 +25,7 @@ export const getAllJobCategory = () =>
         include: [
           {
             model: db.Job,
-            as: "Jobs",
+            as: "jobs",
             attributes: ["id", "img", "content"],
           },
           {

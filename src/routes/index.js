@@ -8,6 +8,8 @@ import apply from "./apply";
 import jobCategory from "./job-category";
 import ApplyMember from "./apply-member";
 import browseApplyManager from "./browse-apply-manager";
+import deleteApply from "./delete-apply";
+import like from "./like";
 import { NotFound } from "../middlewares/handle_error";
 
 const initRoutes = (app) => {
@@ -21,6 +23,9 @@ const initRoutes = (app) => {
   app.use("/api/v1/job-apply", apply);
   app.use("/api/v1/apply-member", ApplyMember);
   app.use("/api/v1/browse-apply-manager", browseApplyManager);
+  app.use("/api/v1/delete-apply", deleteApply);
+  app.use("/api/v1/jobs", like);
+
   app.use(NotFound);
 };
 module.exports = initRoutes;

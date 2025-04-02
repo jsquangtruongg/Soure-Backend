@@ -11,27 +11,38 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false, // không cho phép để trống
+        unique: true, // đảm bảo tiêu đề là duy nhất (nếu cần)
       },
       describe: {
         type: Sequelize.STRING,
+        allowNull: false, // không cho phép để trống
       },
       img: {
         type: Sequelize.STRING,
       },
-      
-      user_id: { type: Sequelize.INTEGER, defaultValue: 1 },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users", // Tham chiếu đến bảng Users
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-
       updatedAt: {
         allowNull: false,
         type: "TIMESTAMP",
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
+    // Thêm chỉ mục cho user_id nếu cần thiết
+    await queryInterface.addIndex("BlogCategories", ["user_id"]);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("BlogCategories");

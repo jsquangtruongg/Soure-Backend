@@ -9,16 +9,19 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "userData",
       });
+
       BrowseApply.belongsTo(models.User, {
         foreignKey: "userApply_id",
         targetKey: "id",
         as: "userApply",
       });
+
       BrowseApply.belongsTo(models.Job, {
         foreignKey: "job_id",
         targetKey: "id",
         as: "jobs",
       });
+
       BrowseApply.belongsTo(models.Apply, {
         foreignKey: "apply_id",
         targetKey: "id",
@@ -26,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   BrowseApply.init(
     {
       user_id: DataTypes.INTEGER,
@@ -38,5 +42,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "BrowseApply",
     }
   );
+
   return BrowseApply;
 };

@@ -8,6 +8,7 @@ export const getAllBrowseApplyManager = async (req, res) => {
     if (response === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     return InternalServerError(res);
   }
 };
@@ -21,3 +22,4 @@ export const createBrowseApplyManager = async (req, res) => {
     return InternalServerError(res);
   }
 };
+  

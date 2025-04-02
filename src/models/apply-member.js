@@ -4,40 +4,64 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ApplyMember extends Model {
     static associate(models) {
+      // Mối quan hệ với User - người tạo ứng tuyển
       ApplyMember.belongsTo(models.User, {
-        foreignKey: "user_id",
+        foreignKey: "user_id", // Khóa ngoại cho người dùng
         targetKey: "id",
-        as: "userData",
+        as: "userData", // Alias cho mối quan hệ
       });
+
+      // Mối quan hệ với Job
       ApplyMember.belongsTo(models.Job, {
-        foreignKey: "job_id",
+        foreignKey: "job_id", // Khóa ngoại cho Job
         targetKey: "id",
-        as: "jobs",
-      });
+        as: "jobs", // Alias cho mối quan hệ
+      }); 
+
+      // Mối quan hệ với Apply
       ApplyMember.belongsTo(models.Apply, {
-        foreignKey: "apply_id",
+        foreignKey: "apply_id", // Khóa ngoại cho Apply
         targetKey: "id",
-        as: "Applies",
+        as: "Applies", // Alias cho mối quan hệ
       });
+
+      // Mối quan hệ với User - người được ứng tuyển
       ApplyMember.belongsTo(models.User, {
-        foreignKey: "userApply_id",
+        foreignKey: "userApply_id", // Khóa ngoại cho người được ứng tuyển
         targetKey: "id",
-        as: "userApply",
+        as: "userApply", // Alias cho mối quan hệ
       });
     }
   }
+
   ApplyMember.init(
     {
-      content: DataTypes.STRING,
-      user_id: DataTypes.INTEGER,
-      job_id: DataTypes.INTEGER,
-      apply_id: DataTypes.INTEGER,
-      userApply_id: DataTypes.INTEGER,
+      content: {
+        type: DataTypes.STRING,
+        allowNull: true, //  Nội dung không bắt buộc
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // Bắt buộc phải có user_id
+      },
+      job_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // Bắt buộc phải có job_id
+      },
+      apply_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // Bắt buộc phải có apply_id
+      },
+      userApply_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true, // Không bắt buộc, nếu cần có thể bỏ trống
+      },
     },
     {
       sequelize,
       modelName: "ApplyMember",
     }
   );
+
   return ApplyMember;
 };

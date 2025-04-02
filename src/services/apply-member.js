@@ -69,6 +69,7 @@ export const getAllApplyMember = () =>
         data: response,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

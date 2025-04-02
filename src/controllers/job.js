@@ -1,33 +1,27 @@
 import { InternalServerError, badRequest } from "../middlewares/handle_error";
 import * as services from "../services";
 const cloudinary = require("cloudinary").v2;
-import Joi from "joi";
-import { image, content, user_id, JobCategory_id } from "../helpers/joi_schema";
 export const createJob = async (req, res) => {
   try {
     const filData = req.file;
-    console.log(filData);
-    const { content, user_id, JobCategory_id, salary, title } = req.body;
-
-    console.log("File Data:", filData);
-    console.log("Content:", content);
-    console.log("User ID:", user_id);
-    console.log("Job Category ID:", JobCategory_id);
+    const { id, content, user_id, jobCategory_id, salary, title, like_count } =
+      req.body;
 
     const response = await services.createJob({
+      id,
       content,
       user_id,
-      JobCategory_id,
+      jobCategory_id,
       fileData: filData || null,
       salary,
       title,
+      like_count,
     });
-    console.log(req.body);
-    console.log("abc", response);
+
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {
-    console.error("Error occurred during job creation:", error); // Log chi tiết lỗi
+    console.error("Error occurred during job creation:", error);
     return InternalServerError(res);
   }
 };
@@ -73,10 +67,10 @@ export const deleteJob = async (req, res) => {
 };
 
 export const getIdJob = async (req, res) => {
-  const { jobCategory_id } = req.query;
-  if (!jobCategory_id) return badRequest("ERROR", res);
+  const { id } = req.params;
+  if (!id) return badRequest("ERROR", res);
   try {
-    const response = await services.getIdJobAPI(jobCategory_id);
+    const response = await services.getIdJobAPI(id);
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

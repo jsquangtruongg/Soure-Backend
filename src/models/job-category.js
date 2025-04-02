@@ -1,21 +1,17 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class JobCategory extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Mối quan hệ với Job
+      JobCategory.hasMany(models.Job, {
+        foreignKey: "jobCategory_id",
+        sourceKey: "id",
+        as: "jobs",
+      });
 
-        JobCategory.hasMany(models.Job, {
-          foreignKey: "JobCategory_id",
-          targetKey: "id",
-          as: "Jobs",
-        });
-
+      // Nếu bạn muốn thêm mối quan hệ với User, hãy chắc chắn rằng User có trường user_id
       JobCategory.belongsTo(models.User, {
         foreignKey: "user_id",
         targetKey: "id",
@@ -23,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   JobCategory.init(
     {
       title: DataTypes.STRING,
@@ -33,5 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "JobCategory",
     }
   );
+
   return JobCategory;
 };

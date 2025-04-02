@@ -4,9 +4,10 @@ import moment from "moment";
 import { Op } from "sequelize";
 const cloudinary = require("cloudinary").v2;
 export const createJob = ({
+  id,
   content,
   user_id,
-  JobCategory_id,
+  jobCategory_id,
   fileData,
   salary,
   title,
@@ -14,10 +15,11 @@ export const createJob = ({
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Job.create({
+        id,
         content,
         img: fileData?.path,
         user_id,
-        JobCategory_id,
+        jobCategory_id,
         salary,
         title,
       });
@@ -27,7 +29,7 @@ export const createJob = ({
           err: 0,
           mess: "The Job was created successfully",
         });
-      } else {
+      } else { 
         resolve({
           err: 1,
           mess: "Job creation failed",
@@ -126,11 +128,11 @@ export const deleteJob = (id) =>
     }
   });
 
-export const getIdJobAPI = (jobCategory_id) =>
+export const getIdJobAPI = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Job.findAll({
-        where: { jobCategory_id },
+        where: { id },
         include: [
           {
             model: db.User,

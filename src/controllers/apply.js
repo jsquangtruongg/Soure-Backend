@@ -3,6 +3,8 @@ import { image } from "../helpers/joi_schema";
 import { badRequest, InternalServerError } from "../middlewares/handle_error";
 const cloudinary = require("cloudinary").v2;
 import * as services from "../services";
+import job from "../models/job";
+import { json } from "sequelize";
 
 export const getAllApply = async (req, res) => {
   try {
@@ -42,6 +44,18 @@ export const getIdApply = async (req, res) => {
     const response = await services.getIdApply(id);
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return InternalServerError(res);
+  }
+};
+
+export const deleteApply = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await services.deleteApply(id);
+    if (response.err === 1) return badRequest("ERROR", res);
+    return res.status(200), json(response);
   } catch (error) {
     console.log(error);
     return InternalServerError(res);
