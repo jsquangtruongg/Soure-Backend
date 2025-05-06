@@ -10,3 +10,4 @@ export * from "./apply-member";
 export * from "./browse-apply-manager";
 export * from "./delete-apply";
 export * from "./like";
+export * from "./comment";

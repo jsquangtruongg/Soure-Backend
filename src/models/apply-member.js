@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       ApplyMember.belongsTo(models.Job, {
         foreignKey: "job_id", // Khóa ngoại cho Job
         targetKey: "id",
-        as: "jobs", // Alias cho mối quan hệ
-      }); 
+        as: "job", // Alias cho mối quan hệ
+      });
 
       // Mối quan hệ với Apply
       ApplyMember.belongsTo(models.Apply, {

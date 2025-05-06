@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       BrowseApply.belongsTo(models.Job, {
         foreignKey: "job_id",
         targetKey: "id",
-        as: "jobs",
+        as: "job",
       });
 
       BrowseApply.belongsTo(models.Apply, {

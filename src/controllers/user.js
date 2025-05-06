@@ -29,7 +29,6 @@ export const getAllUser = async (req, res) => {
     return InternalServerError(res);
   }
 };
-//edit
 export const putUser = async (req, res) => {
   try {
     const { id } = req.params;

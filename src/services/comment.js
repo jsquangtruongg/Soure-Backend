@@ -1,27 +1,19 @@
-import { where } from "sequelize";
-import db from "../models";
 import { date } from "joi";
-
-export const createApplyMember = ({
-  content,
-  job_id,
-  user_id,
-  apply_id,
-  userApply_id,
-}) =>
-  new Promise(async (resolve, reject) => {
+import db from "../models";
+import { Model, Op, where } from "sequelize";
+export const createComment = ({ content, job_id, user_id }) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.ApplyMember.create({
+      const response = await db.Comment.create({
         content,
-        user_id,
         job_id,
-        apply_id,
-        userApply_id,
+        user_id,
       });
       if (response) {
         resolve({
           err: 0,
           mess: "Tao thanh cong",
+          date: response,
         });
       } else {
         resolve({
@@ -30,15 +22,16 @@ export const createApplyMember = ({
         });
       }
     } catch (error) {
-      console.log(error);
       reject(error);
     }
   });
+};
 
-export const getAllApplyMember = () =>
-  new Promise(async (resolve, reject) => {
+export const getCommentJob = (id) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.ApplyMember.findAll({
+      const response = await db.Comment.findOne({
+        where: { id },
         include: [
           {
             model: db.User,
@@ -47,25 +40,14 @@ export const getAllApplyMember = () =>
           },
           {
             model: db.Job,
-            as: "job",
+            as: "jobs",
             attributes: ["id", "img", "content"],
-          },
-          {
-            model: db.Apply,
-            as: "Applies",
-            attributes: ["id", "fullName", "email", "phone"],
-          },
-          {
-            model: db.User,
-            as: "userApply",
-            attributes: ["id", "lastName", "email", "firstName", "avatar"],
           },
         ],
       });
-
       resolve({
         err: response ? 0 : 1,
-        mess: "Lay tat ca DS thanh cong",
+        mess: "The Blog was create successfully",
         data: response,
       });
     } catch (error) {
@@ -73,19 +55,32 @@ export const getAllApplyMember = () =>
       reject(error);
     }
   });
+};
 
-export const deleteAppLyMember = (id) => {
+export const getCommentJobAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.ApplyMember.destroy({
-        where: { id },
+      const response = await db.Comment.findAll({
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "lastName", "email", "firstName", "avatar"],
+          },
+          {
+            model: db.Job,
+            as: "jobs",
+            attributes: ["id", "img", "content"],
+          },
+        ],
       });
       resolve({
         err: response ? 0 : 1,
-        mess: "Tao thanh cong",
+        mess: "The Blog was create successfully",
         data: response,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

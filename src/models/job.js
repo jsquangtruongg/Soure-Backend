@@ -55,10 +55,17 @@ module.exports = (sequelize, DataTypes) => {
       blogCategory_id: DataTypes.INTEGER,
       salary: DataTypes.STRING,
       title: DataTypes.STRING,
+      experience: DataTypes.STRING,
+      location: DataTypes.STRING,
+      Grade: DataTypes.STRING,
+      Education: DataTypes.STRING,
+      positions_needed: DataTypes.STRING,
+      work_type: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "Job",
+      tableName: "Job",
     }
   );
 

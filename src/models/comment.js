@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       Comment.belongsTo(models.Job, {
         foreignKey: "job_id",
         targetKey: "id",
-        as: "jobs",
-      }); 
+        as: "job",
+      });
     }
   }
   Comment.init(

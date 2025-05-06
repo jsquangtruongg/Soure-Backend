@@ -12,7 +12,7 @@ export const getAllBrowseApplyManager = () =>
           },
           {
             model: db.Job,
-            as: "jobs",
+            as: "job",
             attributes: ["id", "img", "content"],
           },
           {

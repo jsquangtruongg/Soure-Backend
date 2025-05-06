@@ -4,8 +4,21 @@ const cloudinary = require("cloudinary").v2;
 export const createJob = async (req, res) => {
   try {
     const filData = req.file;
-    const { id, content, user_id, jobCategory_id, salary, title, like_count } =
-      req.body;
+    const {
+      id,
+      content,
+      user_id,
+      jobCategory_id,
+      salary,
+      title,
+      experience,
+      location,
+      like_count,
+      Grade,
+      Education,
+      positions_needed,
+      work_type,
+    } = req.body;
 
     const response = await services.createJob({
       id,
@@ -15,7 +28,13 @@ export const createJob = async (req, res) => {
       fileData: filData || null,
       salary,
       title,
+      experience,
+      location,
       like_count,
+      Grade,
+      Education,
+      positions_needed,
+      work_type,
     });
 
     if (response.err === 1) return badRequest("ERROR", res);
@@ -40,6 +59,32 @@ export const getAllJob = async (req, res) => {
     return res.status(200).json(response);
   } catch (error) {
     return InternalServerError(res);
+  }
+};
+export const getAllJobs = async (req, res) => {
+  try {
+    const response = await services.getAllJobsService();
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(500).json({
+      err: 1,
+      mess: "Server error",
+    });
+  }
+};
+
+export const getIdJobs = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const response = await services.getIdJobsService(userId);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(500).json({
+      err: 1,
+      mess: "Server error",
+    });
   }
 };
 
@@ -71,6 +116,7 @@ export const getIdJob = async (req, res) => {
   if (!id) return badRequest("ERROR", res);
   try {
     const response = await services.getIdJobAPI(id);
+    console.log(response);
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

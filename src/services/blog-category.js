@@ -21,12 +21,13 @@ export const getAllBlogCategory = (title, describe, lastName, body) =>
           {
             model: db.Blog,
             as: "blogs",
-            attributes: ["id", "title", "content"],
+            attributes: ["id", "title", "img", "content"],
           },
           {
             model: db.User,
             as: "userData",
             attributes: ["id", "email", "firstName", "lastName"],
+            required: false,
             where: lastName ? { lastName: { [Op.like]: `%${lastName}%` } } : {},
           },
         ],
@@ -53,7 +54,7 @@ export const getIdBlogCategory = (id) =>
           {
             model: db.Blog,
             as: "blogs",
-            attributes: ["id", "title", "content"],
+            attributes: ["id", "title", "content", "img"],
           },
         ],
       });

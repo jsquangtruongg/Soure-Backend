@@ -11,22 +11,39 @@ module.exports = {
       },
       firstName: {
         type: Sequelize.STRING,
-        allowNull: false, // không cho phép để trống
+        allowNull: false,
       },
       lastName: {
         type: Sequelize.STRING,
-        allowNull: false, // không cho phép để trống
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false, // không cho phép để trống
-        unique: true, // đảm bảo email là duy nhất
+        allowNull: false,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false, // không cho phép để trống
+        allowNull: false,
+      },
+      field: { type: Sequelize.STRING, allowNull: true },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      description: {
+        type: Sequelize.TEXT("long"),
+        allowNull: true,
+      },
+      scale: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       avatar: { type: Sequelize.STRING },
+      education_levels: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       role_code: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -42,10 +59,9 @@ module.exports = {
         type: "TIMESTAMP",
         defaultValue: Sequelize.literal(
           "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-        ), // tự động cập nhật
+        ),
       },
     });
-    // Thêm chỉ mục cho role_code nếu cần thiết
     await queryInterface.addIndex("Users", ["role_code"]);
   },
   async down(queryInterface, Sequelize) {

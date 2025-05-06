@@ -6,7 +6,8 @@ import dotenv from "dotenv";
 import { socketMiddleware } from "./src/middlewares/socketMiddleware.js";
 import likeRoutes from "./src/routes/like.js";
 import initRoutes from "./src/routes/index.js";
-import "./connection_database.js"; // Đảm bảo kết nối DB
+import db from "./src/models/index.js";
+import "./connection_database.js";
 
 dotenv.config();
 
@@ -33,6 +34,22 @@ initRoutes(app);
 
 io.on("connection", (socket) => {
   console.log("🟢 User connected:", socket.id);
+  socket.on("comment", async (data) => {
+    try {
+      const response = await db.Comment.create({
+        content: data.content,
+        job_id: data.job_id,
+        user_id: data.user_id,
+      });
+
+      if (response) {
+        io.emit("new comment", response);
+        console.log("New comment added:", response);
+      }
+    } catch (error) {
+      console.error("Error creating comment:", error);
+    }
+  });
 
   socket.on("disconnect", () => {
     console.log("🔴 User disconnected:", socket.id);

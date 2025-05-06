@@ -10,6 +10,7 @@ import ApplyMember from "./apply-member";
 import browseApplyManager from "./browse-apply-manager";
 import deleteApply from "./delete-apply";
 import like from "./like";
+import Comment from "./comment";
 import { NotFound } from "../middlewares/handle_error";
 
 const initRoutes = (app) => {
@@ -25,7 +26,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/browse-apply-manager", browseApplyManager);
   app.use("/api/v1/delete-apply", deleteApply);
   app.use("/api/v1/jobs", like);
-
+  app.use("api/v1/comment", Comment);
   app.use(NotFound);
 };
 module.exports = initRoutes;

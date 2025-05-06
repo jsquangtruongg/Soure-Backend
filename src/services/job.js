@@ -11,6 +11,9 @@ export const createJob = ({
   fileData,
   salary,
   title,
+  experience,
+  location,
+  like_count,
 }) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -22,6 +25,13 @@ export const createJob = ({
         jobCategory_id,
         salary,
         title,
+        experience,
+        location,
+        like_count,
+        Grade,
+        Education,
+        positions_needed,
+        work_type,
       });
 
       if (response) {
@@ -29,7 +39,7 @@ export const createJob = ({
           err: 0,
           mess: "The Job was created successfully",
         });
-      } else { 
+      } else {
         resolve({
           err: 1,
           mess: "Job creation failed",
@@ -150,3 +160,109 @@ export const getIdJobAPI = (id) =>
       reject(error);
     }
   });
+
+export const getAllJobsService = async () => {
+  try {
+    const response = await db.User.findAll({
+      include: [
+        {
+          model: db.Job,
+          as: "Jobs",
+          attributes: ["id", "title", "location", "salary"],
+        },
+      ],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "avatar",
+        "description",
+        "field",
+        "address",
+        "scale",
+        "education_levels",
+        "role_code",
+      ],
+    });
+
+    if (!response || response.length === 0) {
+      return {
+        err: 1,
+        mess: "No users found",
+        data: [],
+      };
+    }
+
+    return {
+      err: 0,
+      mess: "Lấy công việc của tất cả người dùng thành công",
+      data: response,
+    };
+  } catch (error) {
+    console.error("Error in getAllJobsService:", error);
+    return {
+      err: 1,
+      mess: "Server error",
+    };
+  }
+};
+
+export const getIdJobsService = async (user_id) => {
+  try {
+    const response = await db.User.findOne({
+      where: { id: user_id },
+      include: [
+        {
+          model: db.Job,
+          as: "Jobs",
+          attributes: [
+            "id",
+            "img",
+            "title",
+            "location",
+            "salary",
+            "content",
+            "experience",
+            "Grade",
+            "Education",
+            "positions_needed",
+            "work_type",
+          ],
+        },
+      ],
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "avatar",
+        "description",
+        "field",
+        "address",
+        "scale",
+        "education_levels",
+        "role_code",
+      ],
+    });
+    if (!response) {
+      return {
+        err: 1,
+        mess: "Không tìm thấy người dùng",
+        data: null,
+      };
+    }
+
+    return {
+      err: 0,
+      mess: "Lấy công việc của người dùng thành công",
+      data: response,
+    };
+  } catch (error) {
+    console.error("Error in getJobsByUserIdService:", error);
+    return {
+      err: 1,
+      mess: "Server error",
+    };
+  }
+};

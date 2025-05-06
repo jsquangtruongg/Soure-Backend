@@ -16,7 +16,7 @@ export const getAllApply = () =>
           },
           {
             model: db.Job,
-            as: "jobs",
+            as: "job",
             attributes: ["id", "img", "content"],
           },
           {
@@ -90,7 +90,7 @@ export const getIdApply = (id) => {
           },
           {
             model: db.Job,
-            as: "jobs",
+            as: "job",
             attributes: ["id", "img", "content"],
           },
           {

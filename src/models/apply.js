@@ -5,21 +5,21 @@ module.exports = (sequelize, DataTypes) => {
   class Apply extends Model {
     static associate(models) {
       Apply.belongsTo(models.User, {
-        foreignKey: "user_id", 
+        foreignKey: "user_id",
         targetKey: "id",
-        as: "userData", 
+        as: "userData",
       });
 
       Apply.belongsTo(models.User, {
-        foreignKey: "userApply_id", 
+        foreignKey: "userApply_id",
         targetKey: "id",
-        as: "userApply", 
+        as: "userApply",
       });
 
       Apply.belongsTo(models.Job, {
         foreignKey: "job_id",
         targetKey: "id",
-        as: "jobs",
+        as: "job",
       });
     }
   }
@@ -36,19 +36,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false, 
+        allowNull: false,
       },
       fullName: {
         type: DataTypes.STRING,
-        allowNull: false, 
+        allowNull: false,
       },
       user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false, 
+        allowNull: false,
       },
       job_id: {
         type: DataTypes.INTEGER,
-        allowNull: false, 
+        allowNull: false,
       },
       userApply_id: {
         type: DataTypes.STRING,

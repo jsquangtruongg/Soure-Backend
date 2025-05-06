@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1,
         references: {
-          model: "Jobs", // tên bảng Jobs
+          model: "Job", // tên bảng Jobs
           key: "id",
         },
         onUpdate: "CASCADE",

@@ -7,6 +7,7 @@ const router = express.Router();
 router.use(verifyToken);
 router.get("/", controllers.getAllBlog);
 router.get("/id", controllers.getIdBlog);
+router.get("/detail", controllers.getBlogIdDetail);
 router.use(isModeratorOrAdmin);
 router.post("/", uploadCloud.single("img"), controllers.createBlog);
 router.put("/blogs/:id", controllers.updateBlog);

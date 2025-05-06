@@ -44,6 +44,19 @@ export const getIdBlog = async (req, res) => {
   }
 };
 
+export const getBlogIdDetail = async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) return badRequest("ERROR", res);
+  try {
+    const response = await services.getBlogIdDetail(id);
+    if (response.err === 1) return badRequest("ERROR", res);
+    return res.status(200).json(response);
+  } catch (error) {
+    return InternalServerError(res);
+  }
+};
+
 export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;

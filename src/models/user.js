@@ -3,13 +3,7 @@ const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // Mối quan hệ với bảng Role
       User.belongsTo(models.Role, {
         foreignKey: "role_code",
         targetKey: "code",
@@ -33,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: "id",
         as: "browseApplies",
       });
+      User.hasMany(models.Job, {
+        foreignKey: "user_id",
+        targetKey: "id",
+        as: "Jobs",
+      });
     }
   }
 
@@ -40,20 +39,35 @@ module.exports = (sequelize, DataTypes) => {
     {
       firstName: {
         type: DataTypes.STRING,
-        allowNull: false, // Không được để trống
+        allowNull: false,
       },
       lastName: {
         type: DataTypes.STRING,
-        allowNull: false, // Không được để trống
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true, // Đảm bảo email là duy nhất
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false, // Không được để trống
+        allowNull: false,
+      },
+      field: {
+        type: DataTypes.STRING,
+      },
+      address: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      scale: {
+        type: DataTypes.STRING,
+      },
+      education_levels: {
+        type: DataTypes.STRING,
       },
       avatar: DataTypes.STRING,
       role_code: {

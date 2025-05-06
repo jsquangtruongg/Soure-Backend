@@ -73,23 +73,8 @@ export const getAllUser = (lastName, firstName, role_code, body) =>
       reject(error);
     }
   });
-// export const getAllUser = (name, body) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       if (name) body.lastName = { [Op.substring]: name };
-//       const response = await db.User.findAll({
-//         where: query,
-//       });
 
-//       resolve({
-//         err: response ? 0 : 1,
-//         mess: "The Blog was create successfully",
-//         data: response,
-//       });
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
+
 
 //edit
 export const putUser = (userId, userData, fileData) =>
@@ -118,6 +103,7 @@ export const putUser = (userId, userData, fileData) =>
         const uploadResponse = await cloudinary.uploader.upload(fileData.path);
         userData.avatar = uploadResponse.secure_url;
       }
+      console.log("Before update userData:", userData);
       await response.update(userData);
 
       resolve({
@@ -127,9 +113,9 @@ export const putUser = (userId, userData, fileData) =>
       });
     } catch (error) {
       reject(error);
-       if (fileData) {
-         await cloudinary.uploader.destroy(fileData.filename); // Xóa ảnh nếu có lỗi xảy ra
-       }
+      if (fileData) {
+        await cloudinary.uploader.destroy(fileData.filename);
+      }
     }
   });
 

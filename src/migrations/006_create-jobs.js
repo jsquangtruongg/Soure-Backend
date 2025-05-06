@@ -1,7 +1,8 @@
 "use strict";
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Jobs", {
+    await queryInterface.createTable("Job", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,15 +25,11 @@ module.exports = {
       },
       experience: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       location: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      like_count: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
       },
       Grade: {
         type: Sequelize.STRING,
@@ -49,6 +46,11 @@ module.exports = {
       work_type: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      like_count: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       comment_count: {
         type: Sequelize.INTEGER,
@@ -97,6 +99,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Jobs");
+    await queryInterface.dropTable("Job");
   },
 };

@@ -6,7 +6,7 @@ export const getAllBlog = (title, content, lastName, body) =>
     try {
       let queryConditions = {};
       if (title) {
-        queryConditions.title = { [Op.like]: `%${title}%` }; // Thay đổi từ Op.substring sang Op.like
+        queryConditions.title = { [Op.like]: `%${title}%` };
       }
       if (content) {
         queryConditions.content = { [Op.substring]: content };
@@ -31,11 +31,11 @@ export const getAllBlog = (title, content, lastName, body) =>
         ],
       });
 
-        resolve({
-          err: response ? 0 : 1,
-          mess: "The Blog was create successfully",
-          data: response,
-        });
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
     } catch (error) {
       reject(error);
     }
@@ -66,6 +66,30 @@ export const getIdBlog = (blog_category_id) =>
     }
   });
 
+export const getBlogIdDetail = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Blog.findOne({
+        where: { id },
+        include: [
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+
+      resolve({
+        err: response ? 0 : 1,
+        mess: "The Blog was create successfully",
+        data: response,
+      });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
 export const createBlog = ({
   title,
   content,

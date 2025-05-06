@@ -1,4 +1,5 @@
 import { toggleLikeJob } from "../services/like";
+import io from "../../index";
 
 export const likeJob = (req, res) => {
   const { jobId } = req.params;

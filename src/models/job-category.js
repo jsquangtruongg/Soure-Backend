@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         as: "jobs",
       });
 
-      // Nếu bạn muốn thêm mối quan hệ với User, hãy chắc chắn rằng User có trường user_id
       JobCategory.belongsTo(models.User, {
         foreignKey: "user_id",
         targetKey: "id",
@@ -28,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "JobCategory",
+      tableName: "JobCategories",
     }
   );
 
