@@ -2,12 +2,13 @@ import { Op, where } from "sequelize";
 import db from "../models";
 import { date } from "joi";
 
-export const createJobCategory = ({ title, user_id }) =>
+export const createJobCategory = ({ title, user_id, fileData }) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.JobCategory.create({
         title,
         user_id,
+        img: fileData?.path,
       });
       resolve({
         err: response ? 0 : 1,

@@ -3,7 +3,14 @@ import { InternalServerError, badRequest } from "../middlewares/handle_error";
 import * as services from "../services";
 export const CreateJobCategory = async (req, res) => {
   try {
-    const response = await services.createJobCategory(req.body);
+    const fileData = req.file;
+    const { id, title, user_id } = req.body;
+    const response = await services.createJobCategory({
+      id,
+      title,
+      user_id,
+      fileData,
+    });
     if (response.err === 1) return badRequest("ERROR", res);
     return res.status(200).json(response);
   } catch (error) {

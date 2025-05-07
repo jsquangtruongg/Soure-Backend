@@ -14,6 +14,10 @@ export const createJob = ({
   experience,
   location,
   like_count,
+  Grade,
+  Education,
+  positions_needed,
+  work_type,
 }) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -40,16 +44,15 @@ export const createJob = ({
           mess: "The Job was created successfully",
         });
       } else {
+        if (fileData) cloudinary.uploader.destroy(fileData.filename); // Đưa lên đây
         resolve({
           err: 1,
           mess: "Job creation failed",
         });
       }
-
-      if (fileData && !response) cloudinary.uploader.destroy(fileData.filename);
     } catch (error) {
-      reject(error);
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
+      reject(error);
     }
   });
 
